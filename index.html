@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenFlow AI - Intelligent Productivity Workspace</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div id="app-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="glass">
+            <div class="logo-container">
+                <div class="logo-icon">Z</div>
+                <div class="logo-text">ZenFlow AI</div>
+            </div>
+            
+            <nav style="flex-grow: 1;">
+                <ul class="nav-menu">
+                    <li class="nav-item active" data-view="dashboard">
+                        <a href="#dashboard">
+                            <i data-lucide="layout-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-view="tasks">
+                        <a href="#tasks">
+                            <i data-lucide="check-square"></i>
+                            <span>Task Board</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-view="focus">
+                        <a href="#focus">
+                            <i data-lucide="hourglass"></i>
+                            <span>Focus Zone</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-view="meeting">
+                        <a href="#meeting">
+                            <i data-lucide="video"></i>
+                            <span>Meeting Notes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-view="flows">
+                        <a href="#flows">
+                            <i data-lucide="git-branch"></i>
+                            <span>Flow Builder</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-view="settings">
+                        <a href="#settings">
+                            <i data-lucide="settings"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">JD</div>
+                    <div class="user-info">
+                        <div class="user-name">Jane Doe</div>
+                        <div class="user-role">Product Lead</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main id="main-content">
+            
+            <!-- VIEW: DASHBOARD -->
+            <section id="view-dashboard" class="view-section fade-in">
+                <div class="view-header">
+                    <div>
+                        <h1 class="view-title">Welcome back, Jane</h1>
+                        <p class="view-subtitle">Here is your intelligent flow analysis for today.</p>
+                    </div>
+                    <button class="btn btn-primary" id="dashboard-trigger-flow">
+                        <i data-lucide="sparkles"></i> AI Sync Now
+                    </button>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="stat-card glass-card">
+                        <div class="stat-header">
+                            <span>Completed Tasks</span>
+                            <i data-lucide="check-circle" style="color: var(--accent-emerald);"></i>
+                        </div>
+                        <div class="stat-value" id="dashboard-tasks-completed">12/16</div>
+                        <div class="stat-trend trend-up">
+                            <i data-lucide="arrow-up-right" style="width:12px;height:12px;"></i>
+                            <span>+8% from yesterday</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card glass-card">
+                        <div class="stat-header">
+                            <span>Focus Hours</span>
+                            <i data-lucide="clock" style="color: var(--accent-violet);"></i>
+                        </div>
+                        <div class="stat-value" id="dashboard-focus-hours">4.2 hrs</div>
+                        <div class="stat-trend trend-up">
+                            <i data-lucide="arrow-up-right" style="width:12px;height:12px;"></i>
+                            <span>+24% weekly average</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card glass-card">
+                        <div class="stat-header">
+                            <span>Active Automations</span>
+                            <i data-lucide="zap" style="color: var(--accent-amber);"></i>
+                        </div>
+                        <div class="stat-value" id="dashboard-active-flows">3</div>
+                        <div class="stat-trend trend-up">
+                            <i data-lucide="arrow-up-right" style="width:12px;height:12px;"></i>
+                            <span>28 triggers run today</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-sections">
+                    <div class="ai-suggestions-container glass-card">
+                        <h2 class="section-title">
+                            <i data-lucide="sparkles" style="color: var(--accent-violet);"></i>
+                            AI Suggestion & Automation Feed
+                        </h2>
+                        <div class="ai-suggestion-list" id="dashboard-suggestion-list">
+                            <!-- Suggestion items injected by JS -->
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card" style="padding: 24px;">
+                        <h2 class="section-title">
+                            <i data-lucide="calendar" style="color: var(--accent-cyan);"></i>
+                            Focus Goal
+                        </h2>
+                        <div style="display:flex; flex-direction:column; gap:16px;">
+                            <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">
+                                Your priority today is resolving the <strong>Sprint Demo Agenda</strong>. Take 45 minutes of quiet time to design.
+                            </p>
+                            <button class="btn btn-secondary" id="dashboard-go-focus" style="width:100%;">
+                                Enter Focus Zone
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: TASKS -->
+            <section id="view-tasks" class="view-section fade-in hidden">
+                <div class="view-header">
+                    <div>
+                        <h1 class="view-title">Task Board</h1>
+                        <p class="view-subtitle">Manage, categorize, and utilize Generative AI to break down tasks.</p>
+                    </div>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn btn-secondary" id="btn-optimize-priorities">
+                            <i data-lucide="sparkles"></i> AI Re-order Priorities
+                        </button>
+                        <button class="btn btn-primary" id="btn-open-add-task">
+                            <i data-lucide="plus"></i> Add Task
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="kanban-controls">
+                    <div class="kanban-search">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="task-search-input" placeholder="Search tasks...">
+                    </div>
+                </div>
+                
+                <div class="kanban-board">
+                    <!-- Column Todo -->
+                    <div class="kanban-column" data-status="todo">
+                        <div class="column-header">
+                            <span class="column-title">
+                                <span class="column-dot dot-todo"></span> To Do
+                            </span>
+                            <span class="column-count" id="count-todo">0</span>
+                        </div>
+                        <div class="task-list" id="list-todo">
+                            <!-- Tasks injected here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Column In Progress -->
+                    <div class="kanban-column" data-status="progress">
+                        <div class="column-header">
+                            <span class="column-title">
+                                <span class="column-dot dot-progress"></span> In Progress
+                            </span>
+                            <span class="column-count" id="count-progress">0</span>
+                        </div>
+                        <div class="task-list" id="list-progress">
+                            <!-- Tasks injected here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Column Review -->
+                    <div class="kanban-column" data-status="review">
+                        <div class="column-header">
+                            <span class="column-title">
+                                <span class="column-dot dot-review"></span> In Review
+                            </span>
+                            <span class="column-count" id="count-review">0</span>
+                        </div>
+                        <div class="task-list" id="list-review">
+                            <!-- Tasks injected here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Column Done -->
+                    <div class="kanban-column" data-status="done">
+                        <div class="column-header">
+                            <span class="column-title">
+                                <span class="column-dot dot-done"></span> Done
+                            </span>
+                            <span class="column-count" id="count-done">0</span>
+                        </div>
+                        <div class="task-list" id="list-done">
+                            <!-- Tasks injected here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: FOCUS ZONE -->
+            <section id="view-focus" class="view-section fade-in hidden">
+                <div class="view-header">
+                    <div>
+                        <h1 class="view-title">Focus Zone</h1>
+                        <p class="view-subtitle">Tune out distraction and boost flow state with AI guidance.</p>
+                    </div>
+                </div>
+                
+                <div class="focus-container glass-card" style="padding: 40px;">
+                    <div class="timer-section">
+                        <div class="timer-circle-wrapper">
+                            <svg class="timer-svg" viewBox="0 0 100 100">
+                                <circle class="timer-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="timer-progress" cx="50" cy="50" r="45" id="timer-progress-bar" stroke-dasharray="282.7" stroke-dashoffset="0"></circle>
+                                <defs>
+                                    <linearGradient id="timer-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="var(--accent-violet)"></stop>
+                                        <stop offset="100%" stop-color="var(--accent-indigo)"></stop>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="timer-digits" id="timer-display">25:00</div>
+                            <div class="timer-label" id="timer-mode">Work Session</div>
+                        </div>
+                        
+                        <div class="timer-controls">
+                            <button class="btn btn-primary" id="btn-timer-toggle">
+                                <i data-lucide="play" id="timer-toggle-icon"></i> <span id="timer-toggle-text">Start Focus</span>
+                            </button>
+                            <button class="btn btn-secondary" id="btn-timer-reset">
+                                <i data-lucide="rotate-ccw"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="sound-section">
+                        <h2 class="section-title">
+                            <i data-lucide="music" style="color: var(--accent-pink);"></i>
+                            Focus Ambiance & AI Coach
+                        </h2>
+                        
+                        <div class="sound-grid">
+                            <div class="sound-card" data-sound="rain">
+                                <div class="sound-card-header">
+                                    <i data-lucide="cloud-rain"></i>
+                                    <span>Gentle Rain</span>
+                                </div>
+                                <input type="range" class="sound-volume" min="0" max="100" value="0">
+                            </div>
+                            <div class="sound-card" data-sound="waves">
+                                <div class="sound-card-header">
+                                    <i data-lucide="waves"></i>
+                                    <span>Ocean Shore</span>
+                                </div>
+                                <input type="range" class="sound-volume" min="0" max="100" value="0">
+                            </div>
+                            <div class="sound-card" data-sound="forest">
+                                <div class="sound-card-header">
+                                    <i data-lucide="trees"></i>
+                                    <span>Forest Birds</span>
+                                </div>
+                                <input type="range" class="sound-volume" min="0" max="100" value="0">
+                            </div>
+                            <div class="sound-card" data-sound="noise">
+                                <div class="sound-card-header">
+                                    <i data-lucide="radio"></i>
+                                    <span>Brown Noise</span>
+                                </div>
+                                <input type="range" class="sound-volume" min="0" max="100" value="0">
+                            </div>
+                        </div>
+                        
+                        <div class="quote-box">
+                            <p class="quote-text" id="ai-quote">"Focus is a muscle, and you are building strength with every quiet minute."</p>
+                            <div class="quote-author" id="ai-quote-author">ZenFlow AI Coach</div>
+                        </div>
+                        
+                        <div style="margin-top:20px; display:flex; justify-content:center;">
+                            <button class="btn btn-secondary btn-icon" id="btn-generate-quote" title="Ask AI for focus guidance">
+                                <i data-lucide="sparkles"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: MEETING NOTES -->
+            <section id="view-meeting" class="view-section fade-in hidden">
+                <div class="view-header">
+                    <div>
+                        <h1 class="view-title">Meeting Notes & Summarizer</h1>
+                        <p class="view-subtitle">AI-powered extraction of action items, outlines, and structures.</p>
+                    </div>
+                </div>
+                
+                <div class="meeting-layout">
+                    <div class="meeting-input-section glass-card" style="padding: 24px;">
+                        <h2 class="section-title">Paste Transcript or Raw Notes</h2>
+                        <textarea class="meeting-textarea" id="meeting-raw-text" placeholder="Paste transcripts, raw brainstorming sentences, or bullet points here..."></textarea>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <button class="btn btn-secondary" id="btn-load-sample-transcript">
+                                Load Sample
+                            </button>
+                            <button class="btn btn-primary" id="btn-summarize-meeting">
+                                <i data-lucide="sparkles"></i> Summarize with AI
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="meeting-output-section glass-card" style="padding: 24px;">
+                        <div class="output-tabs">
+                            <button class="output-tab active" data-tab="summary">AI Summary</button>
+                            <button class="output-tab" data-tab="actions">Action Items</button>
+                            <button class="output-tab" data-tab="mindmap">Mind Map</button>
+                        </div>
+                        
+                        <!-- TAB: Summary -->
+                        <div class="tab-content active" id="tab-summary">
+                            <div class="summary-markdown" id="summary-output">
+                                <p style="color:var(--text-muted); text-align:center; padding-top:60px;">
+                                    Input your notes on the left and trigger the AI summary engine.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- TAB: Actions -->
+                        <div class="tab-content" id="tab-actions">
+                            <div id="actions-output">
+                                <p style="color:var(--text-muted); text-align:center; padding-top:60px;">
+                                    Action items extracted by AI will show up here.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- TAB: Mindmap -->
+                        <div class="tab-content" id="tab-mindmap">
+                            <div id="mindmap-output" style="padding:10px;">
+                                <p style="color:var(--text-muted); text-align:center; padding-top:60px;">
+                                    Structural mind maps generated from transcript hierarchies.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: FLOWS (AUTOMATIONS) -->
+            <section id="view-flows" class="view-section fade-in hidden">
+                <div class="view-header">
+                    <div>
+                        <h1 class="view-title">Workflow Automation Assistant</h1>
+                        <p class="view-subtitle">Define triggers and let Generative AI automate tasks, emails, and syncs.</p>
+                    </div>
+                    <button class="btn btn-primary" id="btn-create-flow">
+                        <i data-lucide="plus"></i> Define Flow
+                    </button>
+                </div>
+                
+                <div class="flow-layout">
+                    <div class="flow-cards" id="flow-container-list">
+                        <!-- Automation cards injected here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: SETTINGS -->
+            <section id="view-settings" class="view-section fade-in hidden">
+                <div class="view-header">
+                    <div>
+                        <h1 class="view-title">Settings</h1>
+                        <p class="view-subtitle">Configure your Generative AI models and general layout.</p>
+                    </div>
+                </div>
+                
+                <div style="display:flex; flex-direction:column; gap:24px; max-width:600px;">
+                    <div class="settings-section glass-card">
+                        <h2 class="section-title">
+                            <i data-lucide="key" style="color:var(--accent-cyan)"></i>
+                            Google Gemini API Key
+                        </h2>
+                        <p style="font-size:12px; color:var(--text-secondary); line-height:1.5; margin-bottom:8px;">
+                            Enable Live AI mode by entering your Gemini API Key. Your key is stored securely in your local browser and never sent to any secondary server.
+                        </p>
+                        <div class="api-key-input-wrapper">
+                            <input type="password" id="input-api-key" placeholder="AIzaSy...">
+                            <button class="btn btn-primary" id="btn-save-key">Save Key</button>
+                        </div>
+                        <div id="api-status-indicator" style="font-size:11px; margin-top:8px; display:flex; align-items:center; gap:6px;">
+                            <span style="width:8px; height:8px; border-radius:50%; background:var(--accent-amber);" id="api-status-dot"></span>
+                            <span id="api-status-text">Using Demo Simulation Mode</span>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section glass-card">
+                        <h2 class="section-title">
+                            <i data-lucide="palette" style="color:var(--accent-violet)"></i>
+                            Theme & Appearance
+                        </h2>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-size:13.5px;">Theme Mode</span>
+                            <select id="select-theme" style="width:120px; background:var(--bg-input); border:1px solid var(--border-color); color:var(--text-primary); padding:6px; border-radius:8px;">
+                                <option value="dark">Dark Theme</option>
+                                <option value="light">Light Theme</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section glass-card">
+                        <h2 class="section-title">
+                            <i data-lucide="database" style="color:var(--accent-emerald)"></i>
+                            Workspace Control
+                        </h2>
+                        <p style="font-size:12px; color:var(--text-secondary); line-height:1.5;">
+                            Reset all local data back to the default demo state including tasks, logs, and timers.
+                        </p>
+                        <div style="display:flex; gap:12px; margin-top:8px;">
+                            <button class="btn btn-secondary" id="btn-reset-data">Reset Demo Data</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Sidebar / Drawer: AI Copilot Chat -->
+        <aside id="copilot-panel" class="glass">
+            <div class="copilot-header">
+                <div class="copilot-title">
+                    <i data-lucide="sparkles" style="color: var(--accent-violet);"></i>
+                    <span>AI Copilot</span>
+                </div>
+                <button class="btn-icon" id="btn-toggle-copilot" title="Collapse Copilot">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+            </div>
+            
+            <div class="copilot-messages" id="copilot-msg-list">
+                <!-- Messages injected here -->
+            </div>
+            
+            <div class="copilot-input-container">
+                <input type="text" class="copilot-input" id="copilot-text-input" placeholder="Ask AI to build a task or email...">
+                <button class="btn-icon icon-purple" id="btn-send-copilot">
+                    <i data-lucide="send"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Floating Open Copilot Tab (when collapsed) -->
+        <button class="btn btn-primary" id="btn-open-copilot-floating" style="position:fixed; bottom:24px; right:24px; border-radius:var(--radius-full); width:50px; height:50px; padding:0; display:none; justify-content:center; align-items:center; z-index:100; box-shadow:var(--shadow-glow);">
+            <i data-lucide="message-square"></i>
+        </button>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+
+    <!-- Modal: Add Task -->
+    <div class="modal-overlay" id="modal-task">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Create Workspace Task</h3>
+                <button class="modal-close" id="modal-task-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="task-input-title">Task Title</label>
+                    <input type="text" id="task-input-title" placeholder="e.g. Structure sprint notes">
+                </div>
+                <div class="form-group">
+                    <label for="task-input-desc">Description</label>
+                    <textarea id="task-input-desc" style="height:100px; resize:none;" placeholder="Detail what is required..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="task-input-priority">Priority</label>
+                    <select id="task-input-priority">
+                        <option value="low">Low Priority</option>
+                        <option value="medium" selected>Medium Priority</option>
+                        <option value="high">High Priority</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="task-input-status">Initial Status</label>
+                    <select id="task-input-status">
+                        <option value="todo">To Do</option>
+                        <option value="progress">In Progress</option>
+                        <option value="review">In Review</option>
+                        <option value="done">Done</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="modal-task-cancel">Cancel</button>
+                <button class="btn btn-primary" id="modal-task-save">Save Task</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: AI Subtask Generator Details -->
+    <div class="modal-overlay" id="modal-subtasks">
+        <div class="modal" style="max-width: 550px;">
+            <div class="modal-header">
+                <h3 class="modal-title" style="display:flex; align-items:center; gap:8px;">
+                    <i data-lucide="sparkles" style="color:var(--accent-violet);"></i>
+                    AI Subtask Decomposition
+                </h3>
+                <button class="modal-close" id="modal-subtasks-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4 id="subtask-parent-title" style="font-size:15px; font-weight:600; margin-bottom:4px;">Task Name</h4>
+                <p id="subtask-parent-desc" style="font-size:12px; color:var(--text-secondary); margin-bottom:16px;">Task description goes here.</p>
+                
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <span style="font-size:13px; font-weight:600;">Checklist / Steps</span>
+                    <button class="btn btn-secondary btn-icon" id="btn-decompose-ai" title="Regenerate subtasks with AI" style="width:28px; height:28px; border-radius:6px;">
+                        <i data-lucide="rotate-cw" style="width:14px; height:14px;"></i>
+                    </button>
+                </div>
+                
+                <div id="subtasks-list-container" style="display:flex; flex-direction:column; gap:10px;">
+                    <!-- Checkboxes injected by JS -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="modal-subtasks-close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sound Element for Focus Ambiance -->
+    <audio id="audio-rain" loop src="https://assets.mixkit.co/active_storage/sfx/2433/2433-200.wav" type="audio/wav"></audio>
+    <audio id="audio-waves" loop src="https://assets.mixkit.co/active_storage/sfx/2513/2513-200.wav" type="audio/wav"></audio>
+    
+    <script src="ai.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
