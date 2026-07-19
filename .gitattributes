@@ -1,0 +1,10 @@
+# Set default behavior to automatically handle line endings.
+# This will normalize all text files to LF in the repository.
+* text=auto
+
+# Explicitly declare text files to ensure they are normalized.
+*.html text
+*.css  text
+*.js   text
+*.json text
+*.md   text
